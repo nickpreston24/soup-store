@@ -1,0 +1,15 @@
+{
+  "name": "soup-store",
+  "version": "1.0.0",
+  "description": "I'm at soup",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "soup",
+    "store"
+  ],
+  "author": "Mike Preston",
+  "license": "ISC"
+}
