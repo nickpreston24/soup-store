@@ -4,13 +4,13 @@ const mongojs = require('mongojs');
 const axios = require('axios');
 
 const PORT = 8080;
+const mongodb_url = process.env.MONGODB_URI || "mongodb://localhost/scraper"
 
 var app = express();
 
-var dbUrl = 'scraper';
 var collections = ["scrapedData"];
 
-var db = mongojs(dbUrl, collections);
+var db = mongojs(mongodb_url, collections);
 
 db.on('error', error => console.log("Database Error: ", error))
 
@@ -28,7 +28,7 @@ app.get('/all', function (req, res) {
 app.get("/scrape", function (req, res) {
     axios.get("https://news.ycombinator.com/")
         .then(response => {
-            var t0 = performance.now();
+            // var t0 = performance.now();
             var $ = cheerio.load(response.data);
 
             // TODO: map to collection of titles & links, then insert all.
@@ -51,7 +51,7 @@ app.get("/scrape", function (req, res) {
                 }
             })
 
-            console.log("took ", performance.now() - t0, " ms.")
+            // console.log("took ", performance.now() - t0, " ms.")
         })
     res.send("Scrape Complete");
 })
