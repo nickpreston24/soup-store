@@ -8,12 +8,12 @@ const path = require('path');
 const PORT = 8080;
 const mongodb_url = process.env.MONGODB_URI || 'mongodb://localhost/scraper';
 const layoutsDir = path.join(__dirname, 'views/mainLayouts'); //Doing this in case I forget how.
+
 var app = express();
 app.engine('handlebars', expbs({
     defaultLayout: 'main',
     layoutsDir
 }));
-
 app.set('view engine', 'handlebars');
 
 var collections = ['scrapedData'];
@@ -22,10 +22,14 @@ var db = mongojs(mongodb_url, collections);
 
 db.on('error', error => console.log('Database Error: ', error));
 
-// app.get("/", (req, res) => res.send(`What do you mean you're "at soup"?`));
-app.get('/', (req, res) => res.render('index'));
+app.get('/', (req, res) => res.render('index', {
+    title: 'Soup Store',
+    site_name: 'The Soup Store'
+}));
 
-app.get('/about', (req, res) => res.render('about'));
+app.get('/about', (req, res) => res.render('about', {
+    title: 'About Page'
+}));
 
 app.get('/all', function (req, res) {
     db.scrapedData.find({}, function (error, found) {
