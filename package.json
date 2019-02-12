@@ -2,7 +2,7 @@
   "name": "soup-store",
   "version": "1.0.0",
   "description": "I'm at soup",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "test"
   },
@@ -18,6 +18,6 @@
     "express": "^4.16.4",
     "express-handlebars": "^3.0.0",
     "mongojs": "^2.6.0",
-    "mongoose": "^5.4.10"
+    "mongoose": "^5.4.11"
   }
 }
