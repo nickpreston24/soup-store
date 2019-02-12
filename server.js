@@ -9,6 +9,13 @@ const PORT = 8080;
 const mongodb_url = process.env.MONGODB_URI || 'mongodb://localhost/scraper';
 const layoutsDir = path.join(__dirname, 'views/mainLayouts'); //Doing this in case I forget how.
 
+const description = `
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione et praesentium porro aspernatur unde expedita
+    quod atque dolor sed placeat, nisi a deserunt est. Quia suscipit sapiente libero. Possimus, obcaecati?
+`;
+const site_name = 'The Soup Store';
+const bugs_url = "https://github.com/MikePreston17/soup-store/issues";
+
 var app = express();
 app.engine('handlebars', expbs({
     defaultLayout: 'main',
@@ -24,12 +31,20 @@ db.on('error', error => console.log('Database Error: ', error));
 
 app.get('/', (req, res) => res.render('index', {
     title: 'Soup Store',
-    site_name: 'The Soup Store'
+    site_name
 }));
 
 app.get('/about', (req, res) => res.render('about', {
-    title: 'About Page'
+    title: 'About Page',
+    description,
+    site_name
 }));
+
+app.get('/error404', (req, res) => res.render('error404', {
+    title: 'Soup Spill!',
+    site_name,
+    bugs_url
+}))
 
 app.get('/all', function (req, res) {
     db.scrapedData.find({}, function (error, found) {
