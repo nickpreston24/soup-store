@@ -5,6 +5,8 @@
 <button id="scrape-articles" class='scrape'>Scrape</button>
 
 <ul>
+    {{#each articles}}
+    <li>{{this}}</li>
     {{!-- PSEUDOCODE --}}
     {{!-- 
             For each found article,
@@ -16,6 +18,8 @@
                 
                 For each comment, load a comment block underneath the article (default 1, non-expanded)
         --}}
+
+    {{/each}}
 </ul>
 
 {{>footer}}
