@@ -20,10 +20,10 @@ module.exports = (app) => {
 
     app.get('/scrape', function (req, res) {
         axios.get('https://news.ycombinator.com/').then(response => {
-            // var t0 = performance.now();
+
             var $ = cheerio.load(response.data);
 
-            // TODO: map to collection of titles & links, then insert all.
+            // TODO: map, then bulk (merge) upsert all.
             $('.title').each(function (i, element) {
                 let a = $(element).children('a');
                 let title = a.text();
@@ -37,13 +37,11 @@ module.exports = (app) => {
                         },
                         (error, inserted) => {
                             if (error) throw error;
-                            // console.log(inserted);
+                            console.log(inserted);
                         }
                     );
                 }
             });
-
-            // console.log("took ", performance.now() - t0, " ms.")
         });
         res.send('Scrape Complete');
     });
