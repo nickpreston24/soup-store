@@ -2,7 +2,6 @@ const express = require('express');
 const expbs = require('express-handlebars');
 const path = require('path');
 const bodyParser = require('body-parser');
-const logger = require('morgan');
 
 const PORT = process.env.PORT || 8080;
 const layoutsDir = path.join(__dirname, 'views/mainLayouts'); //Doing this in case I forget how.
@@ -10,7 +9,6 @@ const partialsDir = path.join(__dirname, 'views/pieces');
 
 var app = express();
 app.use(express.static("public"));
-app.use(logger("dev"));
 app.use(bodyParser.urlencoded({
     extended: false
 }));

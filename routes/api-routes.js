@@ -37,11 +37,16 @@ module.exports = (app) => {
                 }
             });
 
+
             db.Article.create(articles)
-                .then(stored => console.info(stored))
+                // .then(stored => console.info(stored))
                 .catch(err => console.log(err.message));
 
-            res.json(articles);
+            // console.log(articles.length)
+            // res.json(articles);
+            res.render('index', 
+                articles
+            )
         });
     });
 }

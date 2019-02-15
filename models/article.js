@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 var ArticleSchema = new Schema({
+    pkey: {
+        type: String,
+        unique: true
+    },
     title: {
         type: String,
         required: true
