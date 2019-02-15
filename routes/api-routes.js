@@ -1,13 +1,13 @@
 const cheerio = require('cheerio');
 const axios = require('axios');
-// const db = require('../models');
+const db = require('../models');
+const mongoose = require('mongoose');
 
-const mongojs = require('mongojs');
 const mongodb_url = process.env.MONGODB_URI || 'mongodb://localhost/headline_news';
-
-var collections = ['scrapedData'];
-var db = mongojs(mongodb_url, collections);
-db.on('error', error => console.log('Database Error: ', error));
+console.log('mongo url', mongodb_url);
+mongoose.connect(mongodb_url, {
+    useNewUrlParser: true
+});
 
 module.exports = (app) => {
 
@@ -23,26 +23,25 @@ module.exports = (app) => {
 
             var $ = cheerio.load(response.data);
 
-            // TODO: map, then bulk (merge) upsert all.
+            let articles = [];
             $('.title').each(function (i, element) {
                 let a = $(element).children('a');
                 let title = a.text();
                 let link = a.attr('href');
 
                 if (title && link) {
-                    //TODO: upsert the data, preventing dups
-                    db.scrapedData.insert({
-                            title: title,
-                            link: link,
-                        },
-                        (error, inserted) => {
-                            if (error) throw error;
-                            console.log(inserted);
-                        }
-                    );
+                    articles.push({
+                        title,
+                        link
+                    });
                 }
             });
+
+            db.Article.create(articles)
+                .then(stored => console.info(stored))
+                .catch(err => console.log(err.message));
+
+            res.json(articles);
         });
-        res.send('Scrape Complete');
     });
 }

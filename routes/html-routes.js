@@ -14,9 +14,6 @@ module.exports = (app) => {
         })
     });
     
-    //todo: axios request the API
-    
-
     app.get('/about', (req, res) => res.render('about', {
         title: 'About Page',
         description,

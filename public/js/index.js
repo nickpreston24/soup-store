@@ -2,7 +2,11 @@ console.log('index running...')
 
 $(document).ready(() => {
     const scrape = event => {
-        console.info('clicked!');
+        $.ajax({
+            type: "GET",
+            url: '/scrape',
+            dataType: "json",
+        })
     }
 
     const save = () => {
