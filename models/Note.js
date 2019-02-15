@@ -7,8 +7,7 @@ const NoteSchema = new Schema({
     author: {
         type: String,
         required: true
-    },
-    date: Date.now()
+    }
 });
 
 var Note = mongoose.model("Note", NoteSchema);
