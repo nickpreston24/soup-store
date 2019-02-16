@@ -1,18 +1,11 @@
 const cheerio = require('cheerio');
 const axios = require('axios');
 const db = require('../models');
-const mongoose = require('mongoose');
-
-const mongodb_url = process.env.MONGODB_URI || 'mongodb://localhost/headline_news';
-console.log('mongo url', mongodb_url);
-mongoose.connect(mongodb_url, {
-    useNewUrlParser: true
-});
 
 module.exports = (app) => {
 
     app.get('/all', function (req, res) {
-        db.scrapedData.find({}, function (error, found) {
+        db.Article.find({}, function (error, found) {
             if (error) throw error;
             res.json(found);
         });

@@ -21,6 +21,15 @@ app.engine('handlebars', expbs({
 }));
 app.set('view engine', 'handlebars');
 
+const mongoose = require('mongoose');
+
+const mongodb_url = process.env.MONGODB_URI || 'mongodb://localhost/headline_news';
+console.log('mongo url', mongodb_url);
+mongoose.connect(mongodb_url, {
+    useNewUrlParser: true
+});
+
+
 require('./routes/api-routes')(app);
 require('./routes/html-routes')(app);
 
