@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 var ArticleSchema = new Schema({
-    //comment
     // pkey: {
     //     type: String,
     //     unique: true
